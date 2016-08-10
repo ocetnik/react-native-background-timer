@@ -7,6 +7,22 @@ Currently for Android only.
 - `npm install react-native-background-timer --save`
 - `rnpm link`
 
+Copy the ```src/main/java/com/ocetnik``` folder into your ```android/app/src/main/java/com``` folder.
+
+Add the following into your ```MainApplication.java```:
+```java
+import com.ocetnik.timer.BackgroundTimerPackage; // <--- Add BackgroundTimer here
+...
+
+// Modify this routine to include backgroundTimer
+protected List<ReactPackage> getPackages() {
+  return Arrays.<ReactPackage>asList(
+    ...
+    new BackgroundTimerPackage() // <--- Add BackgroundTimer here
+  );
+}
+```
+
 ## Usage
 ```js
 var {DeviceEventEmitter} = React;
