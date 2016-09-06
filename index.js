@@ -67,7 +67,6 @@ DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
 			RNBackgroundTimer.setTimeout(id, callbacks[id].timeout);
 		}
 		callback();
-		console.log('callbacks: ', callbacks);
 	}
 });
 
