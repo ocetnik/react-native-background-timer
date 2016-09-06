@@ -21,6 +21,9 @@ const intervalId = BackgroundTimer.setInterval(() => {
 	// even when app is the the background
 	console.log('tic');
 }, 200);
+
+// Cancel the timer when you are done with it
+BackgroundTimer.clearInterval(intervalId);
 ```
 
 ```javascript
@@ -30,6 +33,9 @@ const timeoutId = BackgroundTimer.setTimeout(() => {
 	// even when app is the the background
   	console.log('tac');
 }, 10000);
+
+// Cancel the timeout if necessary
+BackgroundTimer.clearTimeout(timeoutId);
 ```
 
 ### Obsolete
