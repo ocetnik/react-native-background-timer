@@ -1,3 +1,3 @@
 'use strict';
 import { NativeModules } from 'react-native';
-module.exports = NativeModules.BackgroundTimer;
+module.exports = NativeModules.BackgroundTimer || NativeModules.RNBackgroundTimer;
