@@ -64,7 +64,7 @@ BackgroundTimer.start(5000); // delay in milliseconds
 ```
 ```js
 // listen for event
-DeviceEventEmitter.addListener('backgroundTimer', () => {
+EventEmitter.addListener('backgroundTimer', () => {
 	// this will be executed every 5 seconds
 	// even when app is the the background
 	console.log('toe');
