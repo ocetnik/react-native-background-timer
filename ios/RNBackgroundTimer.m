@@ -8,7 +8,7 @@
 
 @import UIKit;
 #import "RNBackgroundTimer.h"
-#import "RCTEventDispatcher.h"
+#import <React/RCTEventDispatcher.h>
 
 @implementation RNBackgroundTimer {
     UIBackgroundTaskIdentifier bgTask;
@@ -28,7 +28,7 @@ RCT_EXPORT_MODULE()
         [[UIApplication sharedApplication] endBackgroundTask:bgTask];
         bgTask = UIBackgroundTaskInvalid;
     }];
-    
+
     UIBackgroundTaskIdentifier thisBgTask = bgTask;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         if (thisBgTask == bgTask) {
