@@ -18,5 +18,8 @@
     "url": "https://github.com/ocetnik/react-native-background-timer.git"
   },
   "author": "David Ocetnik",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "<0.40.0"
+  }
 }
