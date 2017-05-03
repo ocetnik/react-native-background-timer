@@ -5,6 +5,10 @@ Emit event periodically (even when app is in the background).
 - `npm i react-native-background-timer --save`
 - `react-native link`
 
+### Installation using CocoaPods on iOS
+- `npm i react-native-background-timer --save`
+- add the following to your Podfile: `pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'`
+
 ## Usage
 You can use the `setInterval` and `setTimeout` functions.
 This API is identical to that of `react-native` and can be used to quickly replace existing timers
