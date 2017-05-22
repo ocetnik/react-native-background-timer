@@ -9,6 +9,22 @@ Emit event periodically (even when app is in the background).
 - `npm i react-native-background-timer --save`
 - add the following to your Podfile: `pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'`
 
+Copy the ```src/main/java/com/ocetnik``` folder into your ```android/app/src/main/java/com``` folder.
+
+Add the following into your ```MainApplication.java```:
+```java
+import com.ocetnik.timer.BackgroundTimerPackage; // <--- Add BackgroundTimer here
+...
+
+// Modify this routine to include backgroundTimer
+protected List<ReactPackage> getPackages() {
+  return Arrays.<ReactPackage>asList(
+    ...
+    new BackgroundTimerPackage() // <--- Add BackgroundTimer here
+  );
+}
+```
+
 ## Usage
 You can use the `setInterval` and `setTimeout` functions.
 This API is identical to that of `react-native` and can be used to quickly replace existing timers
