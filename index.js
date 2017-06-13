@@ -1,14 +1,16 @@
-'use strict';
 import {
 	NativeModules,
 	DeviceEventEmitter
 } from 'react-native';
+
 const RNBackgroundTimer = NativeModules.RNBackgroundTimer;
 
-let uniqueId = 0;
-const callbacks = {};
+class BackgroundTimer {
 
-const BackgroundTimer = {
+	constructor() {
+		this.uniqueId = 0;
+		this.callbacks = {};
+	}
 
 	// Original API
 	start(delay) {
@@ -21,8 +23,8 @@ const BackgroundTimer = {
 
 	// New API, allowing for multiple timers
 	setTimeout(callback, timeout) {
-		const timeoutId = ++uniqueId;
-		callbacks[timeoutId] = {
+		const timeoutId = ++this.uniqueId;
+		this.callbacks[timeoutId] = {
 			callback: callback,
 			interval: false,
 			timeout: timeout
@@ -32,15 +34,15 @@ const BackgroundTimer = {
 	},
 
 	clearTimeout(timeoutId) {
-		if (callbacks[timeoutId]) {
-			delete callbacks[timeoutId];
+		if (this.callbacks[timeoutId]) {
+			delete this.callbacks[timeoutId];
 			//RNBackgroundTimer.clearTimeout(timeoutId);
 		}
 	},
 
 	setInterval(callback, timeout) {
-		const intervalId = ++uniqueId;
-		callbacks[intervalId] = {
+		const intervalId = ++this.uniqueId;
+		this.callbacks[intervalId] = {
 			callback: callback,
 			interval: true,
 			timeout: timeout
@@ -50,18 +52,18 @@ const BackgroundTimer = {
 	},
 
 	clearInterval(intervalId) {
-		if (callbacks[intervalId]) {
-			delete callbacks[intervalId];
+		if (this.callbacks[intervalId]) {
+			delete this.callbacks[intervalId];
 			//RNBackgroundTimer.clearTimeout(intervalId);
 		}
 	}
 };
 
 DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
-	if (callbacks[id]) {
-		const callback = callbacks[id].callback;
-		if (!callbacks[id].interval) {
-			delete callbacks[id];
+	if (this.callbacks[id]) {
+		const callback = this.callbacks[id].callback;
+		if (!this.callbacks[id].interval) {
+			delete this.callbacks[id];
 		}
 		else {
 			RNBackgroundTimer.setTimeout(id, callbacks[id].timeout);
@@ -70,4 +72,4 @@ DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
 	}
 });
 
-module.exports = BackgroundTimer;
+export default new BackgroundTimer();
