@@ -10,16 +10,29 @@ class BackgroundTimer {
 	constructor() {
 		this.uniqueId = 0;
 		this.callbacks = {};
+
+		DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
+			if (this.callbacks[id]) {
+				const callback = this.callbacks[id].callback;
+				if (!this.callbacks[id].interval) {
+					delete this.callbacks[id];
+				}
+				else {
+					RNBackgroundTimer.setTimeout(id, this.callbacks[id].timeout);
+				}
+				callback();
+			}
+		});
 	}
 
 	// Original API
 	start(delay) {
 		return RNBackgroundTimer.start(delay);
-	},
+	}
 
 	stop() {
 		return RNBackgroundTimer.stop();
-	},
+	}
 
 	// New API, allowing for multiple timers
 	setTimeout(callback, timeout) {
@@ -31,14 +44,14 @@ class BackgroundTimer {
 		};
 		RNBackgroundTimer.setTimeout(timeoutId, timeout);
 		return timeoutId;
-	},
+	}
 
 	clearTimeout(timeoutId) {
 		if (this.callbacks[timeoutId]) {
 			delete this.callbacks[timeoutId];
 			//RNBackgroundTimer.clearTimeout(timeoutId);
 		}
-	},
+	}
 
 	setInterval(callback, timeout) {
 		const intervalId = ++this.uniqueId;
@@ -49,7 +62,7 @@ class BackgroundTimer {
 		};
 		RNBackgroundTimer.setTimeout(intervalId, timeout);
 		return intervalId;
-	},
+	}
 
 	clearInterval(intervalId) {
 		if (this.callbacks[intervalId]) {
@@ -58,18 +71,5 @@ class BackgroundTimer {
 		}
 	}
 };
-
-DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
-	if (this.callbacks[id]) {
-		const callback = this.callbacks[id].callback;
-		if (!this.callbacks[id].interval) {
-			delete this.callbacks[id];
-		}
-		else {
-			RNBackgroundTimer.setTimeout(id, callbacks[id].timeout);
-		}
-		callback();
-	}
-});
 
 export default new BackgroundTimer();
