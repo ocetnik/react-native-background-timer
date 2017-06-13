@@ -3,7 +3,7 @@ import {
 	NativeModules,
 	DeviceEventEmitter
 } from 'react-native';
-const RNBackgroundTimer = NativeModules.BackgroundTimer || NativeModules.RNBackgroundTimer;
+const RNBackgroundTimer = NativeModules.RNBackgroundTimer;
 
 let uniqueId = 0;
 const callbacks = {};
