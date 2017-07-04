@@ -73,6 +73,7 @@ RCT_EXPORT_METHOD(setTimeout:(int)timeoutId
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timeout * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         [self.bridge.eventDispatcher sendDeviceEventWithName:@"backgroundTimer.timeout" body:[NSNumber numberWithInt:timeoutId]];
+        [[UIApplication sharedApplication] endBackgroundTask:task];
     });
     resolve([NSNumber numberWithBool:YES]);
 }
