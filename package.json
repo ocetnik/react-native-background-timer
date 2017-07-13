@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-timer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Emit event periodically (even when app is in the background)",
   "keywords": [
     "android",
