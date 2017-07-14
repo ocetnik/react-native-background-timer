@@ -8,16 +8,15 @@
 
 @import UIKit;
 #import "RNBackgroundTimer.h"
-#import <React/RCTEventDispatcher.h>
 
 @implementation RNBackgroundTimer {
     UIBackgroundTaskIdentifier bgTask;
     int delay;
 }
 
-@synthesize bridge = _bridge;
-
 RCT_EXPORT_MODULE()
+
+- (NSArray<NSString *> *)supportedEvents { return @[@"backgroundTimer", @"backgroundTimer.timeout"]; }
 
 - (void) _start
 {
@@ -32,7 +31,7 @@ RCT_EXPORT_MODULE()
     UIBackgroundTaskIdentifier thisBgTask = bgTask;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         if (thisBgTask == bgTask) {
-            [self.bridge.eventDispatcher sendDeviceEventWithName:@"backgroundTimer" body:[NSNumber numberWithInt:thisBgTask]];
+            [self sendEventWithName:@"backgroundTimer" body:[NSNumber numberWithInt:(int)thisBgTask]];
             [self _start];
         }
     });
@@ -67,12 +66,12 @@ RCT_EXPORT_METHOD(setTimeout:(int)timeoutId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"RNBackgroundTimer" expirationHandler:^{
+    __block UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"RNBackgroundTimer" expirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timeout * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        [self.bridge.eventDispatcher sendDeviceEventWithName:@"backgroundTimer.timeout" body:[NSNumber numberWithInt:timeoutId]];
+        [self sendEventWithName:@"backgroundTimer.timeout" body:[NSNumber numberWithInt:timeoutId]];
         [[UIApplication sharedApplication] endBackgroundTask:task];
     });
     resolve([NSNumber numberWithBool:YES]);

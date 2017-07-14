@@ -1,9 +1,10 @@
 import {
 	NativeModules,
-	DeviceEventEmitter
+	NativeEventEmitter
 } from 'react-native';
 
-const RNBackgroundTimer = NativeModules.RNBackgroundTimer;
+const { RNBackgroundTimer } = NativeModules;
+const Emitter = new NativeEventEmitter(RNBackgroundTimer);
 
 class BackgroundTimer {
 
@@ -11,7 +12,7 @@ class BackgroundTimer {
 		this.uniqueId = 0;
 		this.callbacks = {};
 
-		DeviceEventEmitter.addListener('backgroundTimer.timeout', (id) => {
+		Emitter.addListener('backgroundTimer.timeout', (id) => {
 			if (this.callbacks[id]) {
 				const callback = this.callbacks[id].callback;
 				if (!this.callbacks[id].interval) {
