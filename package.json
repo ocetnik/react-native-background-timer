@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-timer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Emit event periodically (even when app is in the background)",
   "keywords": [
     "android",
@@ -20,6 +20,6 @@
   "author": "David Ocetnik",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": ">=0.40.0"
+    "react-native": ">=0.47.0"
   }
 }
