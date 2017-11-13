@@ -29,12 +29,14 @@ RCT_EXPORT_MODULE()
     }];
 
     UIBackgroundTaskIdentifier thisBgTask = bgTask;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        if ([self bridge] != nil && thisBgTask == bgTask) {
-            [self sendEventWithName:@"backgroundTimer" body:[NSNumber numberWithInt:(int)thisBgTask]];
-            [self _start];
-        }
-    });
+    while([self bridge] != nil && thisBgTask == bgTask) {
+        [NSThread sleepForTimeInterval:delay/1000.f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self bridge] != nil && thisBgTask == bgTask) {
+                [self sendEventWithName:@"backgroundTimer" body:[NSNumber numberWithInt:(int)thisBgTask]];
+            }
+        });
+    }
 }
 
 - (void) _stop
