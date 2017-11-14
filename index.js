@@ -1,6 +1,9 @@
 import {
 	NativeModules,
-	NativeEventEmitter
+	NativeEventEmitter,
+	DeviceEventEmitter,
+	NativeAppEventEmitter,
+	Platform,
 } from 'react-native';
 
 const { RNBackgroundTimer } = NativeModules;
@@ -27,13 +30,38 @@ class BackgroundTimer {
 	}
 
 	// Original API
-	start(delay) {
+	start(delay=0) {
 		return RNBackgroundTimer.start(delay);
 	}
 
 	stop() {
 		return RNBackgroundTimer.stop();
 	}
+
+	runBackgroundTimer = (callback, delay) => {
+	  const EventEmitter = Platform.select({
+	    ios: () => NativeAppEventEmitter,
+	    android: () => DeviceEventEmitter,
+	  })();
+	  this.start(0);
+	  this.backgroundListener = EventEmitter.addListener('backgroundTimer', () => {
+	  	this.backgroundListener.remove();
+	    this.backgroundClockMethod(callback, delay)
+	  });
+	};
+
+	backgroundClockMethod(callback, delay) {
+		this.backgroundTimer = setTimeout(() => {
+	    	callback();
+	    	this.backgroundClockMethod(callback, delay);
+	    }, 
+	    delay);
+	}
+
+	stopBackgroundTimer = () => {
+	  this.stop();
+	  clearTimeout(this.backgroundTimer);
+	};
 
 	// New API, allowing for multiple timers
 	setTimeout(callback, timeout) {
