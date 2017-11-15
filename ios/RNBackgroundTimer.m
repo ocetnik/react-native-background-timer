@@ -27,12 +27,11 @@ RCT_EXPORT_MODULE()
         [[UIApplication sharedApplication] endBackgroundTask:bgTask];
         bgTask = UIBackgroundTaskInvalid;
     }];
-
+    
     UIBackgroundTaskIdentifier thisBgTask = bgTask;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if ([self bridge] != nil && thisBgTask == bgTask) {
             [self sendEventWithName:@"backgroundTimer" body:[NSNumber numberWithInt:(int)thisBgTask]];
-            [self _start];
         }
     });
 }
