@@ -73,7 +73,13 @@ RCT_EXPORT_METHOD(setTimeout:(int)timeoutId
         if ([self bridge] != nil) {
             [self sendEventWithName:@"backgroundTimer.timeout" body:[NSNumber numberWithInt:timeoutId]];
         }
-        [[UIApplication sharedApplication] endBackgroundTask:task];
+
+        // Give some time for the task to finish. If we call the endBackgroundTask
+        // right away, the app doesn't get any time to perform any operation.
+        // [[UIApplication sharedApplication] endBackgroundTask:task];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] endBackgroundTask:task];
+        });
     });
     resolve([NSNumber numberWithBool:YES]);
 }
