@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-timer",
-  "version": "0.1.4-beta",
+  "version": "2.1.0-alpha.4",
   "description": "Emit event periodically (even when app is in the background)",
   "keywords": [
     "android",
@@ -11,6 +11,7 @@
   ],
   "main": "index.js",
   "scripts": {
+    "eslint": "eslint *.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,16 @@
     "url": "https://github.com/ocetnik/react-native-background-timer.git"
   },
   "author": "David Ocetnik",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": ">=0.47.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "react-native": "^0.56.0"
+  }
 }

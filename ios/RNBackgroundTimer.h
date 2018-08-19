@@ -6,9 +6,9 @@
 //  Copyright (c) ATO Gear. All rights reserved.
 //
 
-#import "RCTBridgeModule.h"
+#import <React/RCTBridgeModule.h>
+#import "RCTEventEmitter.h"
 
-@interface RNBackgroundTimer : NSObject <RCTBridgeModule>
+@interface RNBackgroundTimer : RCTEventEmitter <RCTBridgeModule>
 
 @end
-  

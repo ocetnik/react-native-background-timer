@@ -2,10 +2,43 @@
 Emit event periodically (even when app is in the background).
 
 ## Installation
-- `npm i react-native-background-timer --save`
+- `yarn add react-native-background-timer`
 - `react-native link`
 
-## Usage
+### Installation using CocoaPods on iOS
+- `yarn add react-native-background-timer`
+- add the following to your Podfile: `pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'`
+
+## Usage Crossplatform
+To use the same code both on Android and iOS use runBackgroundTimer() and stopBackgroundTimer(). There can be used only one background timer to keep code consistent.
+
+```javascript
+BackgroundTimer.runBackgroundTimer(() => { 
+//code that will be called every 3 seconds 
+}, 
+3000);
+//rest of code will be performing for iOS on background too
+
+BackgroundTimer.stopBackgroundTimer(); //after this call all code on background stop run.
+```
+> Android didn't tested as well.
+
+## Usage iOS
+After iOS update logic of background task little bit changed. So we can't use as it was. 
+You have to use only start() and stop() without parameters. And all code that is performing will continue performing on background including all setTimeout() timers.
+
+Example:
+```javascript
+BackgroundTimer.start();
+// Do whatever you want incuding setTimeout;
+BackgroundTimer.stop();
+```
+
+> If you call stop() on background no new tasks will be started!
+> Don't call .start() twice, as it stop performing previous background task and starts new. 
+> If it will be called on backgound no tasks will run.
+
+## Usage Android
 You can use the `setInterval` and `setTimeout` functions.
 This API is identical to that of `react-native` and can be used to quickly replace existing timers
 with background timers.
@@ -60,13 +93,12 @@ const EventEmitter = Platform.select({
 
 ```js
 // start a global timer
-BackgroundTimer.start(5000); // delay in milliseconds
+BackgroundTimer.start(5000); // delay in milliseconds only for Android
 ```
 ```js
 // listen for event
 EventEmitter.addListener('backgroundTimer', () => {
-	// this will be executed every 5 seconds
-	// even when app is the the background
+	// this will be executed once after 5 seconds
 	console.log('toe');
 });
 ```
