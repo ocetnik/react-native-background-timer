@@ -1,6 +1,7 @@
 package com.ocetnik.timer;
 
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.PowerManager;
 
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -14,6 +15,7 @@ import java.lang.Runnable;
 
 public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
+    private HandlerThread handlerThread;
     private Handler handler;
     private ReactContext reactContext;
     private Runnable runnable;
@@ -35,6 +37,9 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
         }
     };
 
+    private static final String TIMER_NAME = "timer_name";
+    private static final String TIMEOUT_NAME = "timeout_name";
+
     public BackgroundTimerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -50,7 +55,9 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void start(final int delay) {
-        handler = new Handler();
+        handlerThread = new HandlerThread(TIMER_NAME);
+        handlerThread.start();
+        handler = new Handler(handlerThread.getLooper());
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -75,16 +82,18 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setTimeout(final int id, final int timeout) {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
+        HandlerThread handlerThread = new HandlerThread(TIMEOUT_NAME);
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.postDelayed(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 if (getReactApplicationContext().hasActiveCatalystInstance()) {
                     getReactApplicationContext()
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("backgroundTimer.timeout", id);
                 }
-           }
+            }
         }, timeout);
     }
 
