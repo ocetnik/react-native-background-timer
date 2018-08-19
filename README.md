@@ -2,11 +2,11 @@
 Emit event periodically (even when app is in the background).
 
 ## Installation
-- `npm i react-native-background-timer --save`
+- `yarn add react-native-background-timer`
 - `react-native link`
 
 ### Installation using CocoaPods on iOS
-- `npm i react-native-background-timer --save`
+- `yarn add react-native-background-timer`
 - add the following to your Podfile: `pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'`
 
 ## Usage Crossplatform
