@@ -31,7 +31,7 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
         @Override
         public void onHostDestroy() {
-            wakeLock.release();
+            if (wakeLock.isHeld()) wakeLock.release();
         }
     };
 
