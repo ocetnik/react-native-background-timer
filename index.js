@@ -50,7 +50,7 @@ class BackgroundTimer {
   }
 
   backgroundClockMethod(callback, delay) {
-    this.backgroundTimer = this.setTimeout(() => {
+    if (this.backgroundListener) this.backgroundTimer = this.setTimeout(() => {
       callback();
       this.backgroundClockMethod(callback, delay);
     },
@@ -58,6 +58,7 @@ class BackgroundTimer {
   }
 
   stopBackgroundTimer() {
+    this.backgroundListener = null;
     this.stop();
     clearTimeout(this.backgroundTimer);
   }
