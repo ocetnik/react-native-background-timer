@@ -16,6 +16,10 @@ Emit event periodically (even when app is in the background).
 To use the same code both on Android and iOS use runBackgroundTimer() and stopBackgroundTimer(). There can be used only one background timer to keep code consistent.
 
 ```javascript
+import BackgroundTimer from "react-native-background-timer";
+
+...
+
 BackgroundTimer.runBackgroundTimer(() => { 
 //code that will be called every 3 seconds 
 }, 
