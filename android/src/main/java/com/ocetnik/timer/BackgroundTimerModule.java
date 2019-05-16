@@ -21,13 +21,10 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
     private PowerManager.WakeLock wakeLock;
     private final LifecycleEventListener listener = new LifecycleEventListener(){
         @Override
-        public void onHostResume() {
-            wakeLock.acquire();
-        }
+        public void onHostResume() {}
+
         @Override
-        public void onHostPause() {
-            //wakeLock.release();
-        }
+        public void onHostPause() {}
 
         @Override
         public void onHostDestroy() {
@@ -50,6 +47,8 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void start(final int delay) {
+        if (!wakeLock.isHeld()) wakeLock.acquire();
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -63,6 +62,8 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void stop() {
+        if (wakeLock.isHeld()) wakeLock.release();
+
         // avoid null pointer exceptio when stop is called without start
         if (handler != null) handler.removeCallbacks(runnable);
     }
