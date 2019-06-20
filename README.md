@@ -6,7 +6,7 @@ Emit event periodically (even when app is in the background).
 :warning: If you use [create-react-native-app](https://github.com/react-community/create-react-native-app) you must [eject](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) it before running `react-native link`.
 
 - `yarn add react-native-background-timer`
-- `react-native link`
+- `react-native link react-native-background-timer`
 
 ### Installation using CocoaPods on iOS
 - `yarn add react-native-background-timer`
