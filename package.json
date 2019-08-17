@@ -3,11 +3,11 @@
   "version": "2.2.0-alpha.0",
   "description": "Emit event periodically (even when app is in the background)",
   "keywords": [
-    "android",
-    "ios",
-    "react-component",
     "react-native",
-    "timer"
+    "background",
+    "timer",
+    "android",
+    "ios"
   ],
   "main": "index.js",
   "scripts": {
