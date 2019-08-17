@@ -1,6 +1,8 @@
 module.exports = {
-    "extends": "airbnb",
-    "rules": {
-        "class-methods-use-this": ["error", { "exceptMethods": ["start", "stop"] }]
-    }
+  extends: ['airbnb', 'prettier'],
+  plugins: ['import', 'jsx-a11y', 'prettier', 'react', 'react-hooks'],
+  rules: {
+    'class-methods-use-this': ['error', { exceptMethods: ['start', 'stop'] }],
+    'prettier/prettier': ['error'],
+  },
 };

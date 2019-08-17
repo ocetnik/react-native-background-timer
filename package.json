@@ -12,6 +12,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint *.js",
+    "eslint:fix": "yarn eslint --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,11 +25,30 @@
     "react-native": ">=0.47.0"
   },
   "devDependencies": {
-    "eslint": "^5.4.0",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1",
+    "@babel/core": "^7.5.5",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.2",
+    "prettier": "^1.18.2",
+    "react": "16.8.6",
     "react-native": "^0.60.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
