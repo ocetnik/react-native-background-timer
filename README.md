@@ -12,17 +12,17 @@ Emit event periodically (even when app is in the background).
 
 2. If you use [Expo](https://expo.io/) to create a project [you'll just need to](https://facebook.github.io/react-native/docs/getting-started#caveats) "[eject](https://docs.expo.io/versions/latest/expokit/eject)".
 
-3. Link React Native Background Timer library.
-
-    ```bash
-    react-native link react-native-background-timer
-    ```
-
-4. Before running your app on iOS, make sure you have [CocoaPods](https://cocoapods.org) installed and initialize the project.
+3. If you are using iOS & Cocoapods in your project or using RN >=0.60, make sure you have [CocoaPods](https://cocoapods.org) installed and run:
 
     ```bash
     cd ios
     pod install
+    ```
+
+    If you are not using cocoapods, run:
+
+    ```bash
+    react-native link react-native-background-timer
     ```
 
 Link the library manually if you get errors:
@@ -74,35 +74,6 @@ Link the library manually if you get errors:
 
 ## Usage
 
-### Crossplatform
-To use the same code both on Android and iOS use runBackgroundTimer() and stopBackgroundTimer(). There can be used only one background timer to keep code consistent.
-
-```js
-BackgroundTimer.runBackgroundTimer(() => { 
-//code that will be called every 3 seconds 
-}, 
-3000);
-//rest of code will be performing for iOS on background too
-
-BackgroundTimer.stopBackgroundTimer(); //after this call all code on background stop run.
-```
-
-### iOS
-After iOS update logic of background task little bit changed. So we can't use as it was. 
-You have to use only start() and stop() without parameters. And all code that is performing will continue performing on background including all setTimeout() timers.
-
-Example:
-```js
-BackgroundTimer.start();
-// Do whatever you want incuding setTimeout;
-BackgroundTimer.stop();
-```
-
-> If you call stop() on background no new tasks will be started!
-> Don't call .start() twice, as it stop performing previous background task and starts new. 
-> If it will be called on backgound no tasks will run.
-
-### Android
 You can use the `setInterval` and `setTimeout` functions.
 This API is identical to that of `react-native` and can be used to quickly replace existing timers
 with background timers.
