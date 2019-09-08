@@ -2,7 +2,13 @@
 Emit event periodically (even when app is in the background).
 
 ## Installation
-1. Install React Native Background Timer package.
+1. If you use Expo to create a project [you'll just need to](https://facebook.github.io/react-native/docs/getting-started#caveats) "[eject](https://docs.expo.io/versions/latest/expokit/eject)".
+
+    ```bash
+    expo eject
+    ```
+
+2. Install React Native Background Timer package.
 
     ```bash
     yarn add react-native-background-timer
@@ -10,15 +16,13 @@ Emit event periodically (even when app is in the background).
     npm install react-native-background-timer --save
     ```
 
-2. If you use [Expo](https://expo.io/) to create a project [you'll just need to](https://facebook.github.io/react-native/docs/getting-started#caveats) "[eject](https://docs.expo.io/versions/latest/expokit/eject)".
-
-3. Link React Native Background Timer library.
+3. Link React Native Background Timer library. This step is not necessary when you use React Native >= 0.60 (and your app is not ejected from Expo).
 
     ```bash
     react-native link react-native-background-timer
     ```
 
-4. Before running your app on iOS, make sure you have [CocoaPods](https://cocoapods.org) installed and initialize the project.
+4. If you use CocoaPods or React Native >= 0.60 (and your app is not ejected from Expo) or your app is ejected from Expo, then before running your app on iOS, make sure you have CocoaPods installed and run:
 
     ```bash
     cd ios
@@ -74,6 +78,10 @@ Link the library manually if you get errors:
 
 ## Usage
 
+```js
+import BackgroundTimer from 'react-native-background-timer';
+```
+
 ### Crossplatform
 To use the same code both on Android and iOS use runBackgroundTimer() and stopBackgroundTimer(). There can be used only one background timer to keep code consistent.
 
@@ -106,10 +114,6 @@ BackgroundTimer.stop();
 You can use the `setInterval` and `setTimeout` functions.
 This API is identical to that of `react-native` and can be used to quickly replace existing timers
 with background timers.
-
-```js
-import BackgroundTimer from 'react-native-background-timer';
-```
 
 ```js
 // Start a timer that runs continuous after X milliseconds
