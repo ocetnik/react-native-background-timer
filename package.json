@@ -38,7 +38,7 @@
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "react": "16.8.6",
-    "react-native": "^0.60.5"
+    "react-native": "^0.60.6"
   },
   "husky": {
     "hooks": {
