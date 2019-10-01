@@ -25,7 +25,7 @@
     "react-native": ">=0.47.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "^7.6.2",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",
