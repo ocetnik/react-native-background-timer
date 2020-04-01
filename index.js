@@ -14,7 +14,7 @@ class BackgroundTimer {
     this.uniqueId = 0;
     this.callbacks = {};
 
-    Emitter.addListener('backgroundTimer.timeout', id => {
+    Emitter.addListener('backgroundTimer.timeout', (id) => {
       if (this.callbacks[id]) {
         const callbackById = this.callbacks[id];
         const { callback } = callbackById;
