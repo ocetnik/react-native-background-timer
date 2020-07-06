@@ -44,7 +44,7 @@ RCT_EXPORT_MODULE()
     }
 }
 
-RCT_EXPORT_METHOD(start:(int)_delay
+RCT_EXPORT_METHOD(start:(double)_delay
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -61,7 +61,7 @@ RCT_EXPORT_METHOD(stop:(RCTPromiseResolveBlock)resolve
 }
 
 RCT_EXPORT_METHOD(setTimeout:(int)timeoutId
-                     timeout:(int)timeout
+                     timeout:(double)timeout
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
