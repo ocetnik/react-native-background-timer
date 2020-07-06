@@ -86,7 +86,7 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
                         .emit("backgroundTimer.timeout", id);
                 }
            }
-        }, timeout);
+        }, (long) timeout);
     }
 
     /*@ReactMethod
