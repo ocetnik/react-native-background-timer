@@ -75,7 +75,7 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setTimeout(final int id, final int timeout) {
+    public void setTimeout(final int id, final double timeout) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
             @Override
@@ -86,7 +86,7 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
                         .emit("backgroundTimer.timeout", id);
                 }
            }
-        }, timeout);
+        }, (long) timeout);
     }
 
     /*@ReactMethod
