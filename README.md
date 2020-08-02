@@ -140,7 +140,7 @@ BackgroundTimer.clearTimeout(timeoutId);
 ```
 
 ### Obsolete
-Obsolete usage which doesn't allows to use multiple background timers.
+Obsolete usage which doesn't support multiple background timers.
 
 ```js
 import {
