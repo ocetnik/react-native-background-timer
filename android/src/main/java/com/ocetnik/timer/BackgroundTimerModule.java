@@ -89,6 +89,16 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
         }, (long) timeout);
     }
 
+    @ReactMethod
+    public void addListener(String eventName) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
     /*@ReactMethod
     public void clearTimeout(final int id) {
         // todo one day..
