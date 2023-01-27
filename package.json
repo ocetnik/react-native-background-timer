@@ -25,20 +25,20 @@
     "react-native": ">=0.47.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "eslint": "^8.24.0",
+    "@babel/core": "^7.20.7",
+    "eslint": "^8.31.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1",
     "react": "17.0.2",
-    "react-native": "^0.68.3"
+    "react-native": "^0.68.5"
   },
   "husky": {
     "hooks": {
