@@ -5198,10 +5198,10 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
-react-native@^0.68.6:
-  version "0.68.6"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.68.6.tgz#58224fbd0c74742795287d1de94a91eb1e857dc4"
-  integrity sha512-evLsY9SEd842qvWU/1UeKa9PUGj2R5aPuTXBZj0AfzZlVQwS0bLLG9+j+bmXPlPXfYE8MpzfMLUK4EqmKBZSxg==
+react-native@^0.68.7:
+  version "0.68.7"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.68.7.tgz#9b179f909ac8640e369957696f98070ddf7c32e7"
+  integrity sha512-t7XvcwKyXhN9vR8GfgLUyEYYccwI390pG7debFSGns/5Vb0+/ZiGuSmVZGLNt1NVc3UH2zI2GGkDdSJR8Locig==
   dependencies:
     "@jest/create-cache-key-function" "^27.0.1"
     "@react-native-community/cli" "^7.0.3"
@@ -5306,15 +5306,10 @@ regenerate@^1.4.0:
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
 
-regenerator-runtime@^0.13.11:
+regenerator-runtime@^0.13.11, regenerator-runtime@^0.13.2:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
-
-regenerator-runtime@^0.13.2:
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
-  integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"
