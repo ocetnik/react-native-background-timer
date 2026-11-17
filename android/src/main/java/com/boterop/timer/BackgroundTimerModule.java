@@ -1,43 +1,21 @@
 package io.boterop.timer;
 
-import android.os.Handler;
-import android.os.PowerManager;
+import android.content.Intent;
 
-import com.facebook.react.bridge.LifecycleEventListener;
+import androidx.core.content.ContextCompat;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import java.lang.Runnable;
-
 public class BackgroundTimerModule extends ReactContextBaseJavaModule {
-
-    private Handler handler;
-    private ReactContext reactContext;
-    private Runnable runnable;
-    private PowerManager powerManager;
-    private PowerManager.WakeLock wakeLock;
-    private final LifecycleEventListener listener = new LifecycleEventListener(){
-        @Override
-        public void onHostResume() {}
-
-        @Override
-        public void onHostPause() {}
-
-        @Override
-        public void onHostDestroy() {
-            if (wakeLock.isHeld()) wakeLock.release();
-        }
-    };
+    private static ReactApplicationContext reactApplicationContext;
 
     public BackgroundTimerModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        this.reactContext = reactContext;
-        this.powerManager = (PowerManager) getReactApplicationContext().getSystemService(reactContext.POWER_SERVICE);
-        this.wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "react-native-background-timer:wakelock");
-        reactContext.addLifecycleEventListener(listener);
+        BackgroundTimerModule.reactApplicationContext = reactContext;
     }
 
     @Override
@@ -45,45 +23,41 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
         return "RNBackgroundTimer";
     }
 
+    static ReactApplicationContext getReactApplicationContext() {
+        return reactApplicationContext;
+    }
+
+    static void emitEvent(String eventName, Object data) {
+        if (reactApplicationContext != null && reactApplicationContext.hasActiveCatalystInstance()) {
+            reactApplicationContext
+                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                    .emit(eventName, data);
+        }
+    }
+
     @ReactMethod
     public void start(final int delay) {
-        if (!wakeLock.isHeld()) wakeLock.acquire();
-
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                sendEvent(reactContext, "backgroundTimer");
-            }
-        };
-
-        handler.post(runnable);
+        Intent serviceIntent = new Intent(getReactApplicationContext(), BackgroundTimerService.class);
+        serviceIntent.putExtra("delayMs", (long) delay);
+        ContextCompat.startForegroundService(getReactApplicationContext(), serviceIntent);
     }
 
     @ReactMethod
     public void stop() {
-        if (wakeLock.isHeld()) wakeLock.release();
-
-        // avoid null pointer exceptio when stop is called without start
-        if (handler != null) handler.removeCallbacks(runnable);
-    }
-
-    private void sendEvent(ReactContext reactContext, String eventName) {
-        reactContext
-        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-        .emit(eventName, null);
+        Intent serviceIntent = new Intent(getReactApplicationContext(), BackgroundTimerService.class);
+        getReactApplicationContext().stopService(serviceIntent);
     }
 
     @ReactMethod
     public void setTimeout(final int id, final double timeout) {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
+        final ReactContext reactContext = getReactApplicationContext();
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
-            public void run(){
-                if (getReactApplicationContext().hasActiveCatalystInstance()) {
-                    getReactApplicationContext()
-                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("backgroundTimer.timeout", id);
+            public void run() {
+                if (reactContext.hasActiveCatalystInstance()) {
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("backgroundTimer.timeout", id);
                 }
             }
         }, (long) timeout);
@@ -94,10 +68,4 @@ public class BackgroundTimerModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void removeListeners(Integer count) {}
-
-    /*@ReactMethod
-    public void clearTimeout(final int id) {
-        // todo one day..
-        // not really neccessary to have
-    }*/
 }
