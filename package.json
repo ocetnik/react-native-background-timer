@@ -1,6 +1,6 @@
 {
 	"name": "@boterop/react-native-background-timer",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "Emit event periodically (even when app is in the background)",
 	"keywords": [
 		"react-native",
